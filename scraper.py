@@ -40,7 +40,7 @@ for number in nList:
         soup = BeautifulSoup(webpage.text, "html.parser")
         
         # Se extraen los enlaces de cada convocatoria
-        convocatorias = soup.findAll("a", {"href": re.compile()}) 
+        convocatorias = soup.findAll("a", {"href": re.compile()}) ## <- "problema" el link de las convocatorias aparece enlazado en cada fila de la tabla. ¿Como eleminar links repetidos?
 
 
 # %% NOTAS: TO DO:
