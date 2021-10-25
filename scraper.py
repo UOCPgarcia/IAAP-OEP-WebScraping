@@ -12,8 +12,6 @@ Created on Thu Oct 21 13:59:37 2021
 # pip install fake_useragent
 # pip install selenium
 # pip install chromedriver-binaryy
-# pip install lxml
-
 
 import pandas as pd
 import requests
