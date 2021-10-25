@@ -68,7 +68,8 @@ for number in nList:
         if (fails_count > 20): break
         time.sleep(1 * fails_count)
     
-    print(urls_convocatorias)
+    print(urls_convocatorias) # <- parece que podemos obtener los links sin ningún problema. 
+    # (nota) CONTINUAR. utilizamos dichos links para obtener información que nos interesa y elaborar la tabla. 
         
 
 
