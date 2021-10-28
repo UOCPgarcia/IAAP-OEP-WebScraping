@@ -14,7 +14,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import pickle
-import re
+import csv
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -26,14 +26,28 @@ from selenium.webdriver.common.by import By
 nList = list(range(0, 19))
 base_url ="https://www.juntadeandalucia.es/institutodeadministracionpublica/publico/seleccionjunta.filter?step=refresh&cp=1&id=1&chm=-1&ca=-1&cu=15&cdp=-1&ch=50&v="
 
+# Lista que contendra las urls de cada convocatoría
 urls_convocatorias = list()
 
-dataframe = pd.DataFrame();
-columns = ["Año de Oferta Pública", "Tipo de Accesso", "Cuerpo/Especialidad ó Categoría Profesional", "Plazas", "Fun de plazo", "Estado", "Publicación de la convocatoria", "Url de accesso"]
+# Dataframe
+df = pd.DataFrame()
+
+rows = []
+rows.append(["Año de Oferta Pública",
+           "Nombre de la Convocatoría",
+           "Tipo de Accesso",
+           "Cuerpo/Especialidad ó Categoría Profesional",
+           "Plazas",
+           "Fin de plazo",
+           "Publicación de la convocatoria",
+           "Url BOJA",
+           "¿Ha habido modificaciones en la convocatoría?",
+           "Estado",
+           "Url de accesso"])
 
 fails_count = 0
 
-
+# Header para BeautifulSoup
 http_header = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36", 
   }
@@ -168,8 +182,34 @@ for convocatoria in urls_convocatorias:
                 status_convocatoria = status_convocatoria.text
         except:
             status_convocatoria = ""
-            
+        
+        # Pasamos las listadas creadas a filas
+        rows.append([
+            year_convocatoria,
+            name_convocatoria,
+            access_convocatoria,
+            category_convocatoria,
+            plazas_convocatoria,
+            end_convocatoria,
+            publicacion_BOJA,
+            link_BOJA,
+            mod_convocatoria,
+            status_convocatoria,
+            urls_convocatorias])
+        
 
+# %% DATAFRAME: save as csv file        
+
+# Seguramente los caracteres especiales esten creando nuevas filas. 
+# Con esto lo deberíamos solucionar? NO FUNCIONA
+for i, row in enumerate(rows):
+    for j, data in enumerate(row):
+        rows[i][j] = data.strip()
+
+# Create csv and write rows to output file
+with open('./data/JAconvocatoriasPublicas.csv','w', newline='') as f_output:
+    csv_output = csv.writer(f_output)
+    csv_ou
         
 
 # CHANGES
@@ -182,7 +222,8 @@ for convocatoria in urls_convocatorias:
 # ERRORS/PROBLEMS TO SOLVE
 
 '''
-(28/10/2021). No acabo de conseguir pasar los datos obtenidos de: listas a columnas del dataset. Mañana seguramente lo pregunte a StackOverflow.
+(28/10/2021). No acabo de conseguir pasar los datos obtenidos de: listas a columnas del dataset. He creado algo funcional, pero 
+    no termina de funcionar correctamente (el dataset queda mal ordenado). Mañana seguramente lo pregunte a StackOverflow.
 '''
 
 # %% NOTES/ TO DO:
