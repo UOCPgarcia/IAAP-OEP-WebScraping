@@ -14,6 +14,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import pickle
+import re
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -92,65 +93,111 @@ for convocatoria in urls_convocatorias:
         
         name_convocatoria = whole_section.h2.text
         
-        year_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Año de Oferta Pública:' in element.text)
-        for span in year_convocatoria.find_all('span'):
-            span.decompose() # remeber to call the attribute.txt; ie year_convocatoria.text
-
-        category_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Cuerpo:' in element.text)
-        for span in category_convocatoria.find_all('span'):
-            span.decompose()
-        
-        access_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Tipo de Acceso:' in element.text)
-        for span in access_convocatoria.find_all('span'):
-            span.decompose()
-        
-        position_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Número de plazas:' in element.text)
-        for span in position_convocatoria.find_all('span'):
-            span.decompose()
+        # Año convocatoría
+        try:        
+            year_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Año de Oferta Pública:' in element.text)
+            for span in year_convocatoria.find_all('span'):
+                span.decompose()
+                year_convocatoria = year_convocatoria.text
+        except:
+            year_convocatoria = ""
             
-        end_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Finaliza plazo de solicitud:' in element.text)
-        for span in end_convocatoria.find_all('span'):
-            span.decompose()
+        # Categoría Profesional   
+            
+        try:    
+            category_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Cuerpo:' in element.text)
+            for span in category_convocatoria.find_all('span'):
+                span.decompose()
+                category_convocatoria = category_convocatoria.text
+        except:
+            category_convocatoria = ""
+            
+        # Tipo de Acceso     
+        try:
+            access_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Tipo de Acceso:' in element.text)
+            for span in access_convocatoria.find_all('span'):
+                span.decompose()
+                access_convocatoria = access_convocatoria.text
+        except:
+            access_convocatoria = ""
+            
+        # Número de plazas    
+        try:
+            plazas_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Número de plazas:' in element.text)
+            for span in plazas_convocatoria.find_all('span'):
+                span.decompose()
+                plazas_convocatoria = plazas_convocatoria.text
+        except:
+            plazas_convocatoria = ""
+        
+        # Fin plazo de solicitud
+        try:
+            end_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Finaliza plazo de solicitud:' in element.text)
+            for span in end_convocatoria.find_all('span'):
+                span.decompose()
+                end_convocatoria = end_convocatoria.text
+        except:
+            end_convocatoria = ""
+        
+        # Publicación de la convocatoria (BOJA) y link
+        try:
+            BOJA_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Publicación de la convocatoria:' in element.text)
+            for link in BOJA_convocatoria.find_all('a'):    
+                link_BOJA = link.get('href')
+            for span in BOJA_convocatoria.find_all('span'):
+                span.decompose()
+                publicacion_BOJA = BOJA_convocatoria.text
+        except:
+            publicacion_BOJA = ""
+            link_BOJA = ""
+        
+        # Modificación de la convocatoria (reply: yes/no)
+        
+        try:
+            mod_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Modificación de la convocatoria:' in element.text)
+            for spna in mod_convocatoria.find_all('span'):
+                mod_convocatoria = "Yes"
+        except:
+            mod_convocatoria = "No"        
+        
+        # Estado
+        try:
+            status_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Estado:' in element.text)
+            for span in status_convocatoria.find_all('span'):
+                span.decompose()
+                status_convocatoria = status_convocatoria.text
+        except:
+            status_convocatoria = ""
+            
 
-
-        print(end_convocatoria.text)
         
 
-# 27/10/2021 TURSDAY CHANGES
+# CHANGES
 
 '''
-- Links de cada convocatoría guardados en un archivo de texto. Así nos estalviamos iterar por la web cada vez que queramos provar si el codigo psterior funciona adecuadamente.
-- Conseguido extraer la información de cada categoría que nos intesa, pero:
-       * Aún no faltan algunas categorías.
-       * Por alguna razón, después de concatenar 5 find_all-loops, la cadena se rompe. Ejemplo:
-       print(end_convocatoria.text)
-       
-       output: 
-       21/11/2019
-       21/11/2019
-       
-       File "C:\Users\Usuario\Web scraper\scraper2.py", line 113, in <module>
-        for span in end_convocatoria.find_all('span'):
+(27/10/2021). Links de cada convocatoría guardados en un archivo de texto. Así nos estalviamos iterar por la web cada vez que queramos provar si el codigo psterior funciona adecuadamente.
+(28/10/2021). Conseguido extraer, correctamente, la información de cada categoría. 
+'''
 
-        AttributeError: 'NoneType' object has no attribute 'find_all'
+# ERRORS/PROBLEMS TO SOLVE
 
 '''
 
-
-# %% NOTAS: TO DO:
 '''
-- Solamente tenemos 17 paginas de ofertas.
-    ¿Que pasa cuando se llega a la pagina 18?
-    Implementamos un break, que pare cuando llegue a X
-    pagina y no haya más convocatorias. ¿?
+
+# %% NOTES/ TO DO:
+'''
+- Solamente tenemos 18 paginas de ofertas. Ahora mismo estamos delimitando el número de páginas al inicio...con una lista de números (del 0 al 19)
+    ¿Que pasa cuando se llega a la pagina 20?
+    ¿Implementamos un break, que pare cuando llegue a +20 pagina y no haya más convocatorias?
+    
+    
 - Vemos que los links de cada convocatorias estan repetidos multiples veces. Dificultades:
     * extraer solamente los links de las convocatorias, no link de otros elementos. ¿Como podemos distinguir unos de otros?
         en caso de ser posible su extraccion, nos encontrariamos con muchos links repetidos. (Se puede solucionar facilemnte creando un SET{}??) 
-    * Solución propuesta. Utilizamos webdriver, para extraer concretamente los links comprendidos en la primera columna. No tenemos links repetidos.
-- A causa de la solución establecida en el punto anterior. El driver abrir cada una de las páginas de convocatoria (en este caso 18!!) ¿solución?
+    * SOLUCIÓN PROPUESTA: Utilizamos webdriver para extraer concretamente los links comprendidos en la primera columna. No tenemos links repetidos. Pero:
+        a causa de la solución establecida en el punto anterior. El driver abre cada una de las páginas de convocatoria (en este caso 20!!)
+        ¿ESTO TIENE SOLUCIÓN o es el comportamiento normal de webdriver?
 
 '''
 
-# %% partes de codigo descartadas
-
-soup = BeautifulSoup(webpage.text, "html.parser")
