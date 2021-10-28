@@ -182,7 +182,7 @@ for convocatoria in urls_convocatorias:
 # ERRORS/PROBLEMS TO SOLVE
 
 '''
-
+(28/10/2021). No acabo de conseguir pasar los datos obtenidos de: listas a columnas del dataset. Mañana seguramente lo pregunte a StackOverflow.
 '''
 
 # %% NOTES/ TO DO:
