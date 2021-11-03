@@ -9,60 +9,57 @@ Created on Thu Oct 21 13:59:37 2021
 # pip install bs4
 # pip install selenium
 
-import os #robots
 
-import pandas as pd
-import requests
-from bs4 import BeautifulSoup
-import pickle
-import time
-import csv
+#import pandas as pd
+#import requests
+#from bs4 import BeautifulSoup
+#import pickle
+#import time
+#import csv
 
-from datetime import date
-
+#from datetime import date
+#
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+#
+#  
 
 
-# %% Inicialización de variables
-
-base_url ="https://www.juntadeandalucia.es/institutodeadministracionpublica/publico/seleccionjunta.filter?step=refresh&cp=1&id=1&chm=-1&ca=-1&cu=15&cdp=-1&ch=50&v="
+# %% Inicialización de varibles
 
 # Array con números naturales
+
 nList = list(range(0, 19))
-
-
-# Lectura de robots <- pendiente de pruebas
-
-result = os.popen("curl https://www.juntadeandalucia.es/robots.txt").read()
-result_data_set = {"Disallowed":[], "Allowed":[]}
-
-fic = open("./data/JArobots.txt","w")
-
-for line in result.split("\n"):
-    if line.startswith('Allow'):    # this is for allowed url
-        result_data_set["Allowed"].append(line.split(': ')[1].split(' ')[0])    # to neglect the comments or other junk info
-        print(line, file=fic) # escritura fichero 
-    elif line.startswith('Disallow'):    # this is for disallowed url
-        result_data_set["Disallowed"].append(line.split(': ')[1].split(' ')[0])    # to neglect the comments or other junk info
-        print(line, file=fic) # escritura fichero
-
-
-fic.close
-
-
-# Lectura de propietario
-
+base_url ="https://www.juntadeandalucia.es/institutodeadministracionpublica/publico/seleccionjunta.filter?step=refresh&cp=1&id=1&chm=-1&ca=-1&cu=15&cdp=-1&ch=50&v="
 
 # Lista que contendra las urls de cada convocatoría
 urls_convocatorias = list()
 
 fails_count = 0
 
+print('Por aquí voy '+str(fails_count))
+
+
+
 # Header para BeautifulSoup
 http_header = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36", 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # %%
