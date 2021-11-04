@@ -81,8 +81,9 @@ for number in nList:
     
     # Configuramos el driver
     option = webdriver.ChromeOptions()
-    driver = webdriver.Chrome('./chromedriver/chromedriver', chrome_options=option)
-    driver.get(url) # <- problema. El navegador abre cada una de las páginas de las convocatorias...
+    option.headless= True
+    driver = webdriver.Chrome('./chromedriver/chromedriver', options=option)
+    driver.get(url) 
     
     webpage_list = requests.get(base_url, headers=http_header)
     if (webpage_list.status_code == 200):
