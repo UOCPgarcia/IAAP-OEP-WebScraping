@@ -12,11 +12,13 @@ Created on Thu Oct 21 13:59:37 2021
 
 # %% 1. Import libraries
 
+# pip install python-whois
 # pip install pandas
 # pip install bs4
 # pip install selenium
 
 import os #robots
+import whois #propietario
 
 #import pandas as pd
 #import requests
@@ -31,6 +33,43 @@ import os #robots
 #from selenium.webdriver.common.by import By
 
 
+
+
+
+def get_soup(url):
+    "Obtiene un BeautifulSoup de la url"
+    headers = {
+        "user-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+    }
+
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.content, "html5lib")
+    return soup
+
+
+def lee_tabla_url(url):
+    "Devuelve una matriz con la información de la tabla a partir de la url"
+    soup = get_soup(url)
+    table_data = soup.find('table', class_ = 'listado')
+
+
+    headers = []
+    rows = []
+
+    for i in table_data.find_all('th'):
+        title = i.text
+        headers.append(title)
+        
+    rows.append(headers)
+
+    for j in table_data.find_all('tr')[1:]:
+        row_data = j.find_all('td')
+        row = [tr.text for tr in row_data]
+        rows.append(row)
+
+    return rows
+
+
 # %% Inicialización de variables
 
 base_url ="https://www.juntadeandalucia.es/institutodeadministracionpublica/publico/seleccionjunta.filter?step=refresh&cp=1&id=1&chm=-1&ca=-1&cu=15&cdp=-1&ch=50&v="
@@ -39,7 +78,7 @@ base_url ="https://www.juntadeandalucia.es/institutodeadministracionpublica/publ
 nList = list(range(0, 19))
 
 
-# Lectura de robots <- pendiente de pruebas
+# Lectura de robots
 
 result = os.popen("curl https://www.juntadeandalucia.es/robots.txt").read()
 result_data_set = {"Disallowed":[], "Allowed":[]}
@@ -55,4 +94,12 @@ for line in result.split("\n"):
 print(result_data_set, file=fic)
 
 fic.close()
+
+
+
+fic2 = open("./data/JAwhois.txt","w")
+
+print(whois.whois("https://www.juntadeandalucia.es"), file=fic2)
+
+fic2.close()
 

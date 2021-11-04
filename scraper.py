@@ -10,6 +10,7 @@ Created on Thu Oct 21 13:59:37 2021
 # pip install selenium
 
 import os #robots
+import whois
 
 import pandas as pd
 import requests
@@ -50,8 +51,14 @@ print(result_data_set, file=fic)
 fic.close()
 
 
-# Lectura de propietario
+# Lectura de propietario (null)
 
+fic2 = open("./data/JAwhois.txt","w")
+
+print(whois.whois("https://www.juntadeandalucia.es"), file=fic2)
+
+fic2.close()
+       
 
 # Lista que contendra las urls de cada convocatoría
 urls_convocatorias = list()
