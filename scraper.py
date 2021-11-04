@@ -32,7 +32,7 @@ base_url ="https://www.juntadeandalucia.es/institutodeadministracionpublica/publ
 nList = list(range(0, 19))
 
 
-# Lectura de robots <- pendiente de pruebas
+# Lectura de robots
 
 result = os.popen("curl https://www.juntadeandalucia.es/robots.txt").read()
 result_data_set = {"Disallowed":[], "Allowed":[]}
@@ -42,13 +42,12 @@ fic = open("./data/JArobots.txt","w")
 for line in result.split("\n"):
     if line.startswith('Allow'):    # this is for allowed url
         result_data_set["Allowed"].append(line.split(': ')[1].split(' ')[0])    # to neglect the comments or other junk info
-        print(line, file=fic) # escritura fichero 
     elif line.startswith('Disallow'):    # this is for disallowed url
         result_data_set["Disallowed"].append(line.split(': ')[1].split(' ')[0])    # to neglect the comments or other junk info
-        print(line, file=fic) # escritura fichero
+       
+print(result_data_set, file=fic)
 
-
-fic.close
+fic.close()
 
 
 # Lectura de propietario
