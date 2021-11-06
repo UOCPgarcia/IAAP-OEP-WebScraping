@@ -31,3 +31,5 @@ El proyecto ha sido realizado de forma conjunta por:
 - ./otros desarrollos/ contiene proyectos descartados, pero que mantenían cierta funcionalidad.
 
 ## DOI 
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5651108.svg)](https://doi.org/10.5281/zenodo.5651108)
