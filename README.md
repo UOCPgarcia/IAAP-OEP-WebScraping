@@ -9,7 +9,8 @@ al Máster en Ciencia de Datos de la Universitat Oberta de Catalunya (UOC). En e
 scraping mediante el lenguaje de programación Python para extraer así datos de la web de interés y generar un dataset.
 
 La web elegida ha sido el Instituto Andaluz de Administración Pública, que aloja las diferentes ofertas de empleo público de Andalucía.
-![Instituto Andaluz de administración publica](https://www.juntadeandalucia.es/institutodeadministracionpublica/publico/images/iaap.png
+
+![Instituto Andaluz de administración publica](https://sindicatotecnos.es/wp-content/uploads/2020/04/Instituto-Andaluz-de-la-Administraci%C3%B3n-P%C3%BAblica.jpg
 'Instituto Andaluz de Administración Pública')
 
 
