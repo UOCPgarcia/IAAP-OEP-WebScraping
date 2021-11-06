@@ -22,6 +22,7 @@ El proyecto ha sido realizado de forma conjunta por:
 
 ## Estructura del repositorio
 
+- ./data/practica1_tipologia.pdf memoría del proyecto, con las respuestas a las preguntas planteadas. 
 - ./data/JAconvocatoriasPublicas.csv dataset obtenido.
 - ./data/urls_convocatorias.pickle archivo pickle que aloja los links de cada conocatoria.
 - ./code/scraper.py archivo Python que contiene el código del web scraper.
