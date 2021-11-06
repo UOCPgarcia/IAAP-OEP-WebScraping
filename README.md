@@ -26,5 +26,7 @@ El proyecto ha sido realizado de forma conjunta por:
 - ./data/urls_convocatorias.pickle archivo pickle que aloja los links de cada conocatoria.
 - ./code/scraper.py archivo Python que contiene el código del web scraper.
 - ./code/robots.py archivo Python que contiene el código para el analísis de robots y propietario. 
+- ./chromedriver/chromedriver.exe contiene el *driver* de la versión de Chrome especifica, necesaria para Selenium.
+- ./otros desarrollos/ contiene proyectos descartados, pero que mantenían cierta funcionalidad.
 
 ## DOI 
