@@ -127,11 +127,11 @@ for convocatoria in tqdm(urls_convocatorias, desc="progress bar"):
     
     try: 
         
-        # Seleccionamos de forma aleatoría los headers.
+        # Seleccionamos de forma aleatoria los headers.
         for i in range(1,12):       
             headers = random.choice(headers_list)
         
-        # Establecemos una misma session y implementamos un sistema retry
+        # Establecemos una misma sesión y implementamos un sistema retry
         # Intentará conectarse como máximo 5 veces, y con un incremento de *0.3 cada vez.
         # Añadimos los headers
         session = requests.Session() 
