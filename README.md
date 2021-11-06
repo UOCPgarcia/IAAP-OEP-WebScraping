@@ -21,9 +21,9 @@ El proyecto ha sido realizado de forma conjunta por:
 
 ## Estructura del repositorio
 
-- *./data/JAconvocatoriasPublicas.csv* dataset obtenido.
-- *./data/urls_convocatorias.pickle* archivo pickle que aloja los links de cada conocatoria.
-- *./code/scraper.py archivo Python que contiene el código del web scraper.
-- *./code/robots.py archivo Python que contiene el código para el analísis de robots y propietario. 
+- ./data/JAconvocatoriasPublicas.csv dataset obtenido.
+- ./data/urls_convocatorias.pickle archivo pickle que aloja los links de cada conocatoria.
+- ./code/scraper.py archivo Python que contiene el código del web scraper.
+- ./code/robots.py archivo Python que contiene el código para el analísis de robots y propietario. 
 
 ## DOI 
