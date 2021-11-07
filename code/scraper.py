@@ -34,7 +34,7 @@ base_url ="https://www.juntadeandalucia.es/institutodeadministracionpublica/publ
 # Array con números naturales
 nList = list(range(0, 19))
        
-# Lista que contendrá las urls de cada convocatoría
+# Lista que contendrá las urls de cada convocatoria
 urls_convocatorias = list()
 
 # Contador de fallos para el 1º scraper
@@ -149,17 +149,17 @@ for convocatoria in tqdm(urls_convocatorias, desc="progress bar"):
         if webpage_convocatoria.status_code == 200:
             soup = BeautifulSoup(webpage_convocatoria.text, "html.parser")
             
-            # Obtenemos datos convocatoría        
+            # Obtenemos datos convocatoria        
             whole_section = soup.find('div', {'class':"ficha"})
             
             
-            # Obtenemos la variable: Nombre convocatoría
+            # Obtenemos la variable: Nombre convocatoria
             try:
                 name_convocatoria = whole_section.h3.text
             except:
                 name_convocatoria = "NaN"
                 
-            # Obtenemos la variable: Año convocatoría
+            # Obtenemos la variable: Año convocatoria
             try:        
                 year_convocatoria = whole_section.find(lambda element: element.name == 'p' and 'Año de Oferta Pública:' in element.text)
                 for span in year_convocatoria.find_all('span'):
